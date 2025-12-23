@@ -1,6 +1,8 @@
 # CineMatch: Customized Movie Recommendation System
 
-![CineMatch](static/img/logo.png)
+<div align="center">
+  <img src="static/img/logo.png" alt="CineMatch Logo" width="350">
+</div>
 
 ## Overview
 
