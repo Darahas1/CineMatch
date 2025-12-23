@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Developer Not Found | CineMatch</title>
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxMCIgZmlsbD0iI2U1MDkxNCIvPjxwYXRoIGQ9Ik0xOCAxNmgyOHYzMkgxOFY0NFoiIGZpbGw9IiNmZmYiLz48cmVjdCB4PSIyNCIgeT0iMjAiIHdpZHRoPSIxNiIgaGVpZ2h0PSIyNCIgZmlsbD0iI2U1MDkxNCIvPjwvc3ZnPg==" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .error-heading {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            color: #e50914;
+        }
+        
+        .error-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .error-action {
+            margin-top: 2rem;
+        }
+        
+        .error-button {
+            background-color: #e50914;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .error-button:hover {
+            background-color: #b20710;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="main-nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">CineMatch</a>
+            <ul class="nav-links">
+                <li><a href="/#movies">Movies</a></li>
+                <li><a href="/#top-rated">Top Rated</a></li>
+                <li><a href="/#latest">Latest</a></li>
+                <li><a href="/#developers">Developers Info</a></li>
+                <li><a href="/#hero" class="search-icon-link"><i class="fas fa-search"></i></a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Error Content -->
+    <div class="error-container">
+        <h1 class="error-heading">404</h1>
+        <p class="error-message">Oops! Developer not found</p>
+        <p>The developer profile you're looking for doesn't exist.</p>
+        <div class="error-action">
+            <a href="/#developers" class="error-button">Go to Developers</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>CineMatch</h2>
+                    <p>Your personal movie guide</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/#movies">Movies</a></li>
+                        <li><a href="/#top-rated">Top Rated</a></li>
+                        <li><a href="/#latest">Latest</a></li>
+                        <li><a href="/#developers">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CineMatch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 

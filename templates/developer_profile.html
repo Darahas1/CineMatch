@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ developer.name }} - CineMatch Developer</title>
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxMCIgZmlsbD0iI2U1MDkxNCIvPjxwYXRoIGQ9Ik0xOCAxNmgyOHYzMkgxOFY0NFoiIGZpbGw9IiNmZmYiLz48cmVjdCB4PSIyNCIgeT0iMjAiIHdpZHRoPSIxNiIgaGVpZ2h0PSIyNCIgZmlsbD0iI2U1MDkxNCIvPjwvc3ZnPg==" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #A71D31;
+            --primary-dark: #3F0D12;
+            --text-dark: #3F0D12;
+            --text-medium: #8D775F;
+            --text-light: #A78D76;
+            --bg-white: #F1F0CC;
+            --bg-light: #D5BF86;
+            --bg-dark: #3F0D12;
+            --border-color: rgba(63, 13, 18, 0.15);
+            --box-shadow: 0 10px 30px rgba(63, 13, 18, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-medium);
+            line-height: 1.6;
+            background-color: var(--bg-white);
+        }
+        
+        /* Navigation Styles */
+        #main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(241, 240, 204, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(63, 13, 18, 0.08);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-medium);
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .nav-logo::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        
+        .nav-logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-dark);
+            margin: 6px 0;
+            transition: var(--transition);
+        }
+        
+        /* Developer Profile Page Styles */
+        .profile-container {
+            max-width: 1300px;
+            margin: 120px auto 100px;
+            padding: 0 30px;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .profile-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .profile-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-top: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .profile-sidebar {
+            position: sticky;
+            top: 120px;
+        }
+        
+        .profile-image-container {
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+            filter: grayscale(30%);
+        }
+        
+        .profile-image-container:hover .profile-image {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+        
+        .profile-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(63, 13, 18, 0.4) 0%, rgba(63, 13, 18, 0) 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .profile-image-container:hover .profile-image-overlay {
+            opacity: 1;
+        }
+        
+        .profile-role {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .profile-role::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 40px;
+            height: 2px;
+            background-color: var(--border-color);
+            transform: translateX(-50%);
+        }
+        
+        .profile-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
+            color: var(--text-medium);
+            font-size: 18px;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(167, 29, 49, 0.3);
+        }
+        
+        .contact-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            padding: 14px 20px;
+            width: 100%;
+            background-color: var(--bg-light);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .contact-button:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            box-shadow: 0 5px 15px rgba(167, 29, 49, 0.3);
+        }
+        
+        .profile-main {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+        
+        .profile-section {
+            background-color: var(--bg-white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .profile-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(63, 13, 18, 0.15);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .section-content {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-medium);
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .skill-tag {
+            padding: 8px 16px;
+            background-color: var(--bg-light);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-medium);
+            transition: var(--transition);
+        }
+        
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            transform: translateY(-3px);
+        }
+        
+        .education-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .education-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .education-degree {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+        
+        .education-school {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
+            color: var(--text-medium);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover .contact-icon {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+        }
+        
+        .contact-text {
+            font-size: 16px;
+            color: var(--text-medium);
+        }
+        
+        .contact-text a {
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary-color);
+        }
+        
+        .back-to-team {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+            padding: 14px 25px;
+            background-color: var(--bg-light);
+            color: var(--text-medium);
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .back-to-team:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            box-shadow: 0 5px 15px rgba(167, 29, 49, 0.3);
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: var(--bg-light);
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo p {
+            color: var(--text-light);
+        }
+        
+        .footer-links h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-social h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-white);
+            color: var(--text-medium);
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(167, 29, 49, 0.3);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-bottom p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .profile-content {
+                grid-template-columns: 320px 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-sidebar {
+                max-width: 400px;
+                margin: 0 auto;
+                position: static;
+            }
+            
+            .profile-title {
+                font-size: 50px;
+            }
+            
+            .profile-section {
+                padding: 30px;
+            }
+            
+            .nav-links {
+                position: absolute;
+                right: 0;
+                top: 70px;
+                background-color: var(--bg-white);
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                transform: translateY(-150%);
+                transition: transform 0.5s ease-in;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                gap: 0;
+                padding: 30px 0;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                padding: 15px 0;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .nav-active {
+                transform: translateY(0%);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .profile-title {
+                font-size: 40px;
+            }
+            
+            .profile-subtitle {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .profile-section {
+                padding: 25px;
+            }
+            
+            .footer {
+                padding: 60px 0 20px;
+            }
+            
+            .footer-content {
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="main-nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">CineMatch</a>
+            <ul class="nav-links">
+                <li><a href="/#movies">Movies</a></li>
+                <li><a href="/#top-rated">Top Rated</a></li>
+                <li><a href="/#latest">Latest</a></li>
+                <li><a href="/#developers">Developers Info</a></li>
+                <li><a href="/#hero" class="search-icon-link"><i class="fas fa-search"></i></a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Developer Profile Content -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1 class="profile-title">{{ developer.name }}</h1>
+            <p class="profile-subtitle">{{ developer.role }}</p>
+        </div>
+        
+        <div class="profile-content">
+            <!-- Developer Sidebar -->
+            <div class="profile-sidebar">
+                <div class="profile-image-container">
+                    <img src="{{ url_for('static', filename='images/' + developer.image) }}" alt="{{ developer.name }}" class="profile-image">
+                    <div class="profile-image-overlay"></div>
+                </div>
+                
+                <div class="profile-role">
+                    {{ developer.role }}
+                </div>
+                
+                <div class="profile-social">
+                    <a href="https://github.com" target="_blank" class="social-icon" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="{{ developer.linkedin }}" target="_blank" class="social-icon" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="social-icon" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="mailto:{{ developer.email }}" class="social-icon" title="Email">
+                        <i class="far fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <a href="mailto:{{ developer.email }}" class="contact-button">
+                    <i class="far fa-envelope"></i> Contact Me
+                </a>
+            </div>
+            
+            <!-- Developer Main Content -->
+            <div class="profile-main">
+                <div class="profile-section">
+                    <h2 class="section-title">About</h2>
+                    <div class="section-content">
+                        {{ developer.about }}
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="section-content">
+                        <div class="skills-container">
+                            {% if developer.role == 'ML Engineer' %}
+                                <span class="skill-tag">Machine Learning</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">TensorFlow</span>
+                                <span class="skill-tag">PyTorch</span>
+                                <span class="skill-tag">Recommendation Systems</span>
+                                <span class="skill-tag">Data Analysis</span>
+                                <span class="skill-tag">Deep Learning</span>
+                                <span class="skill-tag">Natural Language Processing</span>
+                            {% elif developer.role == 'Frontend Developer' %}
+                                <span class="skill-tag">HTML</span>
+                                <span class="skill-tag">CSS</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Responsive Design</span>
+                                <span class="skill-tag">Bootstrap</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Flask</span>
+                            {% elif developer.role == 'Backend Developer' %}
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Flask</span>
+                                <span class="skill-tag">RESTful APIs</span>
+                                <span class="skill-tag">SQL</span>
+                                <span class="skill-tag">MongoDB</span>
+                                <span class="skill-tag">Database Design</span>
+                                <span class="skill-tag">TensorFlow</span>
+                                <span class="skill-tag">Git</span>
+                                <span class="skill-tag">Html</span>
+                                <span class="skill-tag">CSS</span>
+                                <span class="skill-tag">JavaScript</span>
+
+                            {% elif developer.role == 'Data Engineer' %}
+                                <span class="skill-tag">Database Management</span>
+                                <span class="skill-tag">SQL</span>
+                                <span class="skill-tag">ETL Pipelines</span>
+                                <span class="skill-tag">Data Warehousing</span>
+                                <span class="skill-tag">Big Data</span>
+                                <span class="skill-tag">Cloud Services</span>
+                                <span class="skill-tag">Data Modeling</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Html</span>
+                                <span class="skill-tag">CSS</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h2 class="section-title">Education</h2>
+                    <div class="section-content">
+                        <div class="education-item">
+                            <div class="education-degree">Bachelors in Computer Applications</div>
+                            <div class="education-school">KL University Hyderabad</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h2 class="section-title">Contact</h2>
+                    <div class="section-content">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="far fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <a href="mailto:{{ developer.email }}">{{ developer.email }}</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <a href="{{ developer.linkedin }}" target="_blank">LinkedIn Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="/#developers" class="back-to-team">
+                    <i class="fas fa-arrow-left"></i> Back to Team
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>CineMatch</h2>
+                    <p>Your personal movie guide</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/#movies">Movies</a></li>
+                        <li><a href="/#top-rated">Top Rated</a></li>
+                        <li><a href="/#latest">Latest</a></li>
+                        <li><a href="/#developers">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CineMatch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Navigation menu toggle for mobile
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
+            
+            // Burger Animation
+            burger.classList.toggle('toggle');
+        });
+        
+        // Sticky navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 100) {
+                nav.style.padding = '5px 0';
+                nav.style.boxShadow = '0 5px 15px rgba(63, 13, 18, 0.15)';
+            } else {
+                nav.style.padding = '10px 0';
+                nav.style.boxShadow = '0 2px 15px rgba(63, 13, 18, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html> 

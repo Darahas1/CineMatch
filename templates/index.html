@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch | Find Your Next Favorite Movie</title>
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSIxMCIgZmlsbD0iI2U1MDkxNCIvPjxwYXRoIGQ9Ik0xOCAxNmgyOHYzMkgxOFY0NFoiIGZpbGw9IiNmZmYiLz48cmVjdCB4PSIyNCIgeT0iMjAiIHdpZHRoPSIxNiIgaGVpZ2h0PSIyNCIgZmlsbD0iI2U1MDkxNCIvPjwvc3ZnPg==" type="image/svg+xml">
+    <meta name="description" content="CineMatch helps you discover movies you'll love based on your preferences. Get personalized movie recommendations instantly.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+    .movie-poster-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        height: 320px;
+        width: 100%;
+        background-color: #333;
+    }
+
+    .movie-poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        border-radius: 8px;
+        background-color: #333;
+    }
+
+    .latest-section .movie-poster {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        transform: translateY(-15px);
+        border-radius: 8px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center top;
+        background-color: #333;
+        transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="main-nav">
+        <div class="nav-content">
+            <a href="#hero" class="nav-logo">CineMatch</a>
+            <ul class="nav-links">
+                <li><a href="#movies">Movies</a></li>
+                <li><a href="#top-rated">Top Rated</a></li>
+                <li><a href="#latest">Latest</a></li>
+                <li><a href="#developers">Developers Info</a></li>
+                <li><a href="#hero" class="search-icon-link"><i class="fas fa-search"></i></a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video -->
+    <section id="hero" class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='videos/MRS_video.mp4') }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">CineMatch</h1>
+            <p class="hero-subtitle">Discover your next favorite movie | DISCOVER.WATCH.REPEAT</p>
+            
+            <!-- Search Container moved to hero section -->
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="movie-input" placeholder="Enter a movie title...">
+                    <div id="suggestions-container" class="suggestions-container"></div>
+                </div>
+                <button id="recommend-btn">Get Recommendations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section id="movies" class="recommendations-section">
+        <div class="container">
+            <h2 class="section-title">Recommended Movies</h2>
+            <div id="error-message"></div>
+            <div id="recommendations-list" class="movies-grid"></div>
+        </div>
+    </section>
+
+    <!-- Top Rated Section -->
+    <section id="top-rated" class="movie-section">
+        <div class="container">
+            <h2 class="section-title">Top Rated Movies</h2>
+            <div class="movies-slider">
+                <div class="slider-container">
+                    <!-- Sample Movie Cards (will be populated dynamically or replaced by actual data) -->
+                    <div class="movie-card">
+                        <div class="movie-poster-container">
+                            <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="The Shawshank Redemption" class="movie-poster">
+                            <div class="movie-overlay">
+                                <div class="movie-details">
+                                    <p>1994 ‧ Drama ‧ 2h 22m</p>
+                                    <p class="movie-rating">9.3/10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="movie-title">The Shawshank Redemption</h3>
+                    </div>
+                    <div class="movie-card">
+                        <div class="movie-poster-container">
+                            <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" alt="The Godfather" class="movie-poster">
+                            <div class="movie-overlay">
+                                <div class="movie-details">
+                                    <p>1972 ‧ Crime ‧ 2h 55m</p>
+                                    <p class="movie-rating">9.2/10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="movie-title">The Godfather</h3>
+                    </div>
+                    <div class="movie-card">
+                        <div class="movie-poster-container">
+                            <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="The Dark Knight" class="movie-poster">
+                            <div class="movie-overlay">
+                                <div class="movie-details">
+                                    <p>2008 ‧ Action ‧ 2h 32m</p>
+                                    <p class="movie-rating">9.0/10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="movie-title">The Dark Knight</h3>
+                    </div>
+                    <div class="movie-card">
+                        <div class="movie-poster-container">
+                            <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BMTZkMjBjNWMtZGI5OC00MGU0LTk4ZTItODg2NWM3NTVmNWQ4XkEyXkFqcGc@._V1_.jpg" alt="The Lord of the Rings" class="movie-poster">
+                            <div class="movie-overlay">
+                                <div class="movie-details">
+                                    <p>2003 ‧ Fantasy ‧ 3h 21m</p>
+                                    <p class="movie-rating">8.9/10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="movie-title">The Lord of the Rings: The Return of the King</h3>
+                    </div>
+                    <div class="movie-card">
+                        <div class="movie-poster-container">
+                            <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BMjlmZmI5MDctNDE2YS00YWE0LWE5ZWItZDBhYWQ0NTcxNWRhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" alt="Spirited Away" class="movie-poster">
+                            <div class="movie-overlay">
+                                <div class="movie-details">
+                                    <p>2001 ‧ Animation ‧ 2h 5m</p>
+                                    <p class="movie-rating">8.6/10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="movie-title">Spirited Away</h3>
+                    </div>
+                    <div class="movie-card">
+                        <div class="movie-poster-container">
+                            <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg" alt="Forrest Gump" class="movie-poster">
+                            <div class="movie-overlay">
+                                <div class="movie-details">
+                                    <p>1994 ‧ Drama ‧ 2h 22m</p>
+                                    <p class="movie-rating">8.8/10</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="movie-title">Forrest Gump</h3>
+                    </div>
+                </div>
+                <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Section -->
+    <section id="latest" class="movie-section latest-section">
+        <div class="container">
+            <h2 class="section-title">Latest Releases</h2>
+            <div class="section-subtitle">Explore the newest films in theaters and streaming</div>
+            <div class="movies-grid">
+                <div class="movie-card">
+                    <div class="movie-poster-container">
+                        <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg" alt="Dune: Part Two" class="movie-poster">
+                        <div class="movie-overlay">
+                            <div class="movie-details">
+                                <p>2024 ‧ Sci-Fi/Adventure ‧ 2h 46m</p>
+                                <p class="movie-rating">8.5/10</p>
+                            </div>
+                        </div>
+                        <span class="new-badge">New</span>
+                    </div>
+                    <h3 class="movie-title">Dune: Part Two</h3>
+                </div>
+                
+                <div class="movie-card">
+                    <div class="movie-poster-container">
+                        <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BM2U0MTJiYTItMjNiZS00MzU4LTkxYTAtYTU0ZGY1ODJhMjRhXkEyXkFqcGc@._V1_.jpg" alt="The Fall Guy" class="movie-poster">
+                        <div class="movie-overlay">
+                            <div class="movie-details">
+                                <p>2024 ‧ Action/Comedy ‧ 2h 6m</p>
+                                <p class="movie-rating">7.4/10</p>
+                            </div>
+                        </div>
+                        <span class="new-badge">New</span>
+                    </div>
+                    <h3 class="movie-title">The Fall Guy</h3>
+                </div>
+                
+                <div class="movie-card">
+                    <div class="movie-poster-container">
+                        <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BM2ZiNThlNzItNmY3Ny00NjA2LWJlMjItNTk1NDI3MDMyMTk4XkEyXkFqcGc@._V1_.jpg" alt="Peaky Blinders" class="movie-poster">
+                        <div class="movie-overlay">
+                            <div class="movie-details">
+                                <p>2022-2024 ‧ Crime/Drama ‧ Series</p>
+                                <p class="movie-rating">8.8/10</p>
+                            </div>
+                        </div>
+                        <span class="new-badge trending">Trending</span>
+                    </div>
+                    <h3 class="movie-title">Peaky Blinders</h3>
+                </div>
+                
+                <div class="movie-card">
+                    <div class="movie-poster-container">
+                        <img loading="lazy" src="https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg" alt="Spider-Man: No Way Home" class="movie-poster">
+                        <div class="movie-overlay">
+                            <div class="movie-details">
+                                <p>2021 ‧ Action/Adventure ‧ 2h 28m</p>
+                                <p class="movie-rating">8.2/10</p>
+                            </div>
+                        </div>
+                        <span class="new-badge">New</span>
+                    </div>
+                    <h3 class="movie-title">Spider-Man: No Way Home</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developers Info Section -->
+    <section id="developers" class="developers-section">
+        <div class="container">
+            <h2 class="section-title">Developers Info</h2>
+            <div class="developers-content">
+                <div class="dev-info">
+                    <h3>About the Project</h3>
+                    <p>CineMatch is a movie recommendation system built using machine learning algorithms. It analyzes movie preferences and suggests similar films based on content and collaborative filtering techniques. Our system uses a comprehensive dataset of thousands of movies to provide personalized recommendations tailored to your taste.</p>
+                </div>
+                <div class="dev-team">
+                    <h3>Our Team</h3>
+                    <div class="team-members">
+                        <div class="member">
+                            <a href="{{ url_for('developer_profile', dev_name='abhishek') }}">
+                                <img src="{{ url_for('static', filename='images/ml engineer.jpg') }}" alt="ML Engineer" class="member-avatar">
+                                <h4>Abhishek T.V.S</h4>
+                                <p>ML Engineer</p>
+                            </a>
+                        </div>
+                        <div class="member">
+                            <a href="{{ url_for('developer_profile', dev_name='karthikesh') }}">
+                                <img src="{{ url_for('static', filename='images/frontend developer.jpg') }}" alt="Frontend Developer" class="member-avatar">
+                                <h4>Karthikesh B</h4>
+                                <p>Frontend Developer</p>
+                            </a>
+                        </div>
+                        <div class="member">
+                            <a href="{{ url_for('developer_profile', dev_name='darahas') }}">
+                                <img src="{{ url_for('static', filename='images/backend developer.jpg') }}" alt="Backend Developer" class="member-avatar">
+                                <h4>Sai Darahas B</h4>
+                                <p>Backend Developer</p>
+                            </a>
+                        </div>
+                        <div class="member">
+                            <a href="{{ url_for('developer_profile', dev_name='naresh') }}">
+                                <img src="{{ url_for('static', filename='images/data engineer.jpg') }}" alt="Data Engineer" class="member-avatar">
+                                <h4>Naresh Chandra P</h4>
+                                <p>Data Engineer</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Write to Us</h2>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>CineMatch</h2>
+                    <p>Your personal movie guide</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#movies">Movies</a></li>
+                        <li><a href="#top-rated">Top Rated</a></li>
+                        <li><a href="#latest">Latest</a></li>
+                        <li><a href="#developers">Developers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CineMatch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 
