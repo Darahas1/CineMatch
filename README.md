@@ -1,6 +1,6 @@
 # CineMatch: Customized Movie Recommendation System
 
-![CineMatch](static/images/logo.png)
+![CineMatch](static/img/logo.png)
 
 ## Overview
 
