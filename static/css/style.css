@@ -216,7 +216,7 @@ ul {
     }
 }
 
-/* Navigation */
+/* nav-logoigation */
 #main-nav {
     position: sticky;
     top: 0;
@@ -241,13 +241,19 @@ ul {
     margin: 0 auto;
 }
 
-.nav-logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-light);
-    letter-spacing: 1px;
-    position: relative;
+/* === LOGO FIX START === */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
+
+.nav-logo-img {
+    /* This controls the size of your logo in the navbar */
+    height: 60px; 
+    width: auto; /* Maintains aspect ratio */
+}
+/* === LOGO FIX END === */
 
 .nav-links {
     display: flex;
