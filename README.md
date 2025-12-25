@@ -1,153 +1,145 @@
-# CineMatch: Customized Movie Recommendation System
-
 <div align="center">
-  <img src="static/img/logo.png" alt="CineMatch Logo" width="350">
+  <img src="static/img/logo.png" alt="CineMatch Logo" width="300" height="auto" />
+  <h1>CineMatch: Customized Movie Recommendations</h1>
+  
+  <p>
+    <b>An intelligent recommendation engine powered by content-based filtering and semantic search.</b>
+  </p>
+
+  <a href="https://www.python.org/">
+    <img src="https://img.shields.io/badge/Python-3.8+-A71D31?style=for-the-badge&logo=python&logoColor=F1F0CC" alt="Python" />
+  </a>
+  <a href="https://flask.palletsprojects.com/">
+    <img src="https://img.shields.io/badge/Flask-Backend-3F0D12?style=for-the-badge&logo=flask&logoColor=D5BF86" alt="Flask" />
+  </a>
+  <a href="https://scikit-learn.org/">
+    <img src="https://img.shields.io/badge/Scikit_Learn-ML-8D775F?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit Learn" />
+  </a>
+  <a href="https://pandas.pydata.org/">
+    <img src="https://img.shields.io/badge/Pandas-Data-D5BF86?style=for-the-badge&logo=pandas&logoColor=3F0D12" alt="Pandas" />
+  </a>
+  <a href="https://developer.themoviedb.org/docs">
+    <img src="https://img.shields.io/badge/TMDB-API-A71D31?style=for-the-badge&logo=themoviedb&logoColor=F1F0CC" alt="TMDB" />
+  </a>
 </div>
 
-## Overview
-
-CineMatch is an intelligent movie recommendation system that uses advanced content-based filtering to suggest movies similar to your favorites. The application features an enhanced autocomplete function that suggests semantically related movies as you type, making it easier to discover new films you'll love.
-
-## Key Features
-
-- **Smart Autocomplete**: Get suggestions for both exact matches and semantically similar movies as you type
-- **Personalized Recommendations**: Discover five movies similar to your selection based on content analysis
-- **Beautiful Netflix-Inspired UI**: Enjoy a responsive, modern interface that works on all devices
-- **Rich Movie Information**: View movie posters fetched from TMDB API
-- **Contact Form**: Easily get in touch with the development team via integrated email functionality
-
-## How It Works
-
-CineMatch uses a sophisticated content-based filtering approach:
-
-1. **Comprehensive Data Analysis**: Movies are analyzed based on:
-   - Plot overview and themes
-   - Genres and keywords
-   - Cast members and director
-   - Release date
-   - Popularity metrics (vote count)
-
-2. **Advanced Text Processing**: Features are processed using natural language techniques and vectorization
-
-3. **Similarity Calculation**: Cosine similarity algorithm identifies movies with similar content profiles
-
-4. **Enhanced Suggestion System**: The autocomplete feature combines exact text matching and semantic similarity to provide intelligent suggestions
-
-## Setup Instructions
-
-### Prerequisites
-- Python 3.8+ installed
-- Git (for cloning the repository)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd movie-recommendation-system
-   ```
-
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   
-   # Windows
-   venv\Scripts\activate
-   
-   # Linux/Mac
-   source venv/bin/activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Data Setup:
-   - Download the TMDB 5000 dataset files:
-     - [tmdb_5000_movies.csv](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata?select=tmdb_5000_movies.csv)
-     - [tmdb_5000_credits.csv](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata?select=tmdb_5000_credits.csv)
-   - Place these files in the `data/` directory
-
-5. Email Integration (Optional):
-   - If you want to use the contact form functionality:
-     - Create a Google Cloud Platform project
-     - Enable the Gmail API
-     - Download credentials.json to the project root
-     - On first run, follow the authentication prompts
-
-6. Run the application:
-   ```bash
-   python app.py
-   ```
-
-7. Access the application:
-   ```
-   http://127.0.0.1:5000/
-   ```
-
-## Technology Stack
-
-### Backend
-- **Flask**: Python web framework for serving the application
-- **Pandas & NumPy**: Data manipulation and numerical operations
-- **scikit-learn**: Machine learning for similarity calculations
-- **Google API Client**: For email integration with the contact form
-
-### Frontend
-- **HTML5/CSS3**: Responsive layout with modern styling
-- **JavaScript**: Dynamic interactions and AJAX requests
-- **Fetch API**: Asynchronous data retrieval from the backend
-
-### External Services
-- **TMDB API**: For fetching movie posters and additional metadata
-
-## Project Structure
-```
-movie-recommender/
-│
-├── app.py                 # Flask application with routes and email functionality
-├── movie_recommender.py   # Core recommendation engine
-├── requirements.txt       # Python dependencies
-│
-├── static/                # Static assets
-│   ├── css/               # Stylesheet files
-│   ├── js/                # JavaScript files
-│   ├── images/            # Image assets
-│   └── videos/            # Video content
-│
-├── templates/             # HTML templates
-│   └── index.html         # Main application page
-│
-├── data/                  # Dataset files
-│   ├── tmdb_5000_movies.csv
-│   └── tmdb_5000_credits.csv
-│
-└── README.md              # Project documentation
-```
-
-## Future Enhancements
-
-- User accounts and personalized recommendation history
-- Advanced filtering options (by genre, year, rating)
-- Integration with streaming service availability
-- Mobile application version
-
-## Acknowledgments
-
-- Data provided by [The Movie Database (TMDB)](https://www.themoviedb.org/)
-- Project inspired by content-based recommendation techniques
-- Special thanks to the open-source community for machine learning tools
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or feedback about this project, please use the contact form within the application or reach out through GitHub.
+<br />
 
 ---
 
-*Last updated: April 2025*
+## Overview
 
+**CineMatch** is a sophisticated movie recommendation system designed to help users discover their next favorite film. Unlike simple genre filters, CineMatch uses **content-based filtering** to analyze the DNA of a movie—its plot, cast, crew, and keywords.
+
+The application features a distinct **Cinematic UI** (utilizing a deep crimson and gold palette) and a smart autocomplete system that understands semantic similarity, ensuring you find relevant movies even if you don't know the exact title.
+
+## Key Features
+
+* **Smart Autocomplete:** Real-time suggestions that find both exact matches and semantically related titles as you type.
+* **Precision Filtering:** Uses Cosine Similarity algorithms to recommend 5 movies based on plot, cast, and director.
+* **Cinematic UI:** A responsive interface built with a rich color palette (`#A71D31` Red & `#D5BF86` Gold) for a premium look.
+* **Integrated Contact:** Built-in email functionality using Google API for direct user feedback.
+* **Rich Metadata:** Dynamically fetches high-quality movie posters from the TMDB API.
+
+---
+
+## Tech Stack
+
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Backend** | Flask | Lightweight web server and routing |
+| **Machine Learning** | Scikit-learn | TF-IDF Vectorization & Cosine Similarity |
+| **Data Processing** | Pandas / NumPy | Data manipulation and matrix operations |
+| **Frontend** | HTML5 / JS / CSS3 | Responsive layout and AJAX interactions |
+| **External API** | TMDB API | Fetching posters and movie metadata |
+| **Communication** | Gmail API | Handling contact form submissions |
+
+---
+
+## How It Works
+
+CineMatch uses a multi-step pipeline to generate recommendations:
+
+1.  **Data Analysis:** The system ingests the TMDB 5000 dataset, extracting key features (Genres, Keywords, Cast, Director).
+2.  **Vectorization:** Text data is processed using Natural Language Processing (NLP) techniques.
+3.  **Similarity Matrix:** A cosine similarity matrix is calculated to quantify the relationship between every pair of movies.
+4.  **Retrieval:** When a user selects a movie, the system retrieves the top 5 vectors closest to the selection.
+
+---
+
+## Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Darahas1/CineMatch.git  
+```
+
+### 2. Set Up Virtual Environment
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# Linux / Mac
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Data Configuration
+Download the dataset files from Kaggle and place them in the data/ folder:
+
+> TMDB 5000 Movies
+
+> TMDB 5000 Credits
+
+### 5. Run the Application
+```bash
+python app.py
+```
+
+(Default) Access the app at: http://127.0.0.1:5000/
+
+
+### Project Structure
+
+```
+movie-recommender/
+├── app.py                 # Flask App & Routes
+├── movie_recommender.py   # ML Recommendation Engine
+├── requirements.txt       # Dependencies
+├── data/                  # Dataset Directory
+│   ├── tmdb_5000_movies.csv
+│   └── tmdb_5000_credits.csv
+├── static/                # Assets (CSS, JS, Images)
+├── templates/             # HTML Templates
+└── README.md              # Documentation
+```
+
+### Future Enhancements
+
+* __User Accounts__: Personalized history and "Watch Later" lists.
+
+* __Streaming Availability__: Integration with JustWatch API to show where to stream.
+
+* __Advanced Filters__: Filter recommendations by Year, Language, or Runtime.
+
+* __Mobile App__: A React Native version for mobile users.
+
+
+### License
+
+This project is licensed under the MIT [License](https://github.com/Darahas1/CineMatch/blob/main/LICENSE) - see the LICENSE file for details.
+
+
+### Acknowledgments
+
+* Data provided by The Movie Database (TMDB).
+* UI inspired by modern streaming platforms.
+
+
+<div align="center"> <sub>Built with ❤️ by Sai Darahas</sub> </div>
